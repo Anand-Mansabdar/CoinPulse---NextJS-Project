@@ -46,7 +46,13 @@ export async function fetcher<T>(
       bodyText = await response.text();
     } catch {}
 
-    console.error("API request failed:", url, response.status, response.statusText, bodyText);
+    console.error(
+      "API request failed:",
+      url,
+      response.status,
+      response.statusText,
+      bodyText
+    );
 
     // Try to extract an error message from a JSON body
     let errorMessage = bodyText || response.statusText;
