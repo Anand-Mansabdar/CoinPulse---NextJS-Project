@@ -5,10 +5,12 @@ import { cn, formatCurrency } from "@/lib/utils";
 import { TrendingDown, TrendingUp } from "lucide-react";
 import { fetcher } from "@/lib/coingecko.actions";
 import { Suspense } from "react";
-import CoinOverview from "@/components/home/CoinOverview";
-import TrendingCoins from "@/components/home/TrendingCoins";
+import CoinOverview from "@/app/components/home/CoinOverview";
+import TrendingCoins from "@/app/components/home/TrendingCoins";
 import CoinOverviewFallback from "./components/CoinOverviewFallback";
 import TrendingCoinsFallback from "./components/TrendingCoinsFallback";
+import Categories from "./components/home/Categories";
+import CategoriesFallback from "./components/CategoriesFallback";
 
 const Page = async () => {
   const coin = await fetcher<CoinDetailsData>("/coins/bitcoin", {
@@ -33,7 +35,9 @@ const Page = async () => {
       </section>
 
       <section className="w-full mt-7 space-y-4">
-        <p>Categories</p>
+        <Suspense fallback={<CategoriesFallback />}>
+          <Categories />
+        </Suspense>
       </section>
     </main>
   );
